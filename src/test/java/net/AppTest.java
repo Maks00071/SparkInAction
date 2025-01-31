@@ -1,4 +1,4 @@
-package Korystov.M;
+package net;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
