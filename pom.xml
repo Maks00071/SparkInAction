@@ -18,14 +18,74 @@
     <spark.version>3.5.0</spark.version>
     <junit.version>4.13.1</junit.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <jackson.version>2.15.2</jackson.version>
+    <postgresql.version>42.7.2</postgresql.version>
   </properties>
+
   <dependencies>
-    <!--  Spark  -->
+    <!--   Spark   -->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.version}</artifactId>
       <version>${spark.version}</version>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/io.circe/circe-parser -->
+    <dependency>
+      <groupId>io.circe</groupId>
+      <artifactId>circe-parser_3</artifactId>
+      <version>0.14.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.typesafe.scala-logging</groupId>
+      <artifactId>scala-logging-slf4j_2.10</artifactId>
+      <version>2.1.2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.scala-sbt/compiler-bridge -->
+    <dependency>
+      <groupId>org.scala-sbt</groupId>
+      <artifactId>compiler-bridge_2.12</artifactId>
+      <version>1.10.7</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.scala-sbt/zinc -->
+    <dependency>
+      <groupId>org.scala-sbt</groupId>
+      <artifactId>zinc_2.13</artifactId>
+      <version>1.10.5</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.10</artifactId>
+      <version>2.2.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>scala-library</artifactId>
+          <groupId>org.scala-lang</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.version}</artifactId>
@@ -37,6 +97,14 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>2.12.12</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-mllib_${scala.version}</artifactId>
@@ -58,44 +126,72 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-<!--    <dependency>-->
-<!--      <groupId>org.slf4j</groupId>-->
-<!--      <artifactId>slf4j-api</artifactId>-->
-<!--      <version>2.0.3</version>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.16</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>2.0.3</version>
+      <version>2.0.16</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-xml</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
-<!--        <configuration>-->
-<!--          <source>${java.version}</source>-->
-<!--          <target>${java.version}</target>-->
-<!--        </configuration>-->
       </plugin>
-<!--      <plugin>-->
-<!--        <groupId>org.codehaus.mojo</groupId>-->
-<!--        <artifactId>exec-maven-plugin</artifactId>-->
-<!--        <version>1.6.0</version>-->
-<!--        <configuration>-->
-<!--          <executable>java</executable>-->
-<!--          <arguments>-->
-<!--            <argument>-classpath</argument>-->
-<!--            <classpath/>-->
-<!--            <argument>net.jgp.books.spark.ch01.lab100_csv_to_dataframe.CsvToDataframeApp</argument>-->
-<!--          </arguments>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
+      <!--       <plugin> -->
+      <!--         <groupId>org.codehaus.mojo</groupId> -->
+      <!--         <artifactId>exec-maven-plugin</artifactId> -->
+      <!--         <version>1.6.0</version> -->
+      <!--         <configuration> -->
+      <!--           <executable>java</executable> -->
+      <!--           <arguments> -->
+      <!--             <argument>-classpath</argument> -->
+      <!--             <classpath/> -->
+      <!--             <argument>net.jgp.books.spark.ch01.lab100_csv_to_dataframe.CsvToDataframeApp</argument> -->
+      <!--           </arguments> -->
+      <!--         </configuration> -->
+      <!--       </plugin> -->
     </plugins>
   </build>
 </project>
