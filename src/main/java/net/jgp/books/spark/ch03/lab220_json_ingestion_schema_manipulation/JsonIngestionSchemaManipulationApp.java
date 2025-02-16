@@ -23,7 +23,7 @@ public class JsonIngestionSchemaManipulationApp {
     }
 
     /**
-     * The processing code.
+     * The processing code
      * {1} - Как и с CSV, к JSON можно добавлять столбцы с названием
      * {2} - Доступ к вложенным полям с помощью символа точки "."
      * {3} - Описание в формате <id> - <label> можно разделить по символу "." и взять
