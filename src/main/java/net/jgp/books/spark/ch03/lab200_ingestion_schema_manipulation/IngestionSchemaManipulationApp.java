@@ -7,6 +7,7 @@ import org.apache.spark.Partition;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.StructType;
 
 
 public class IngestionSchemaManipulationApp {
@@ -31,6 +32,10 @@ public class IngestionSchemaManipulationApp {
      * {12} - Определяем кол-во существующих разделов (партиций)
      * {13} - Изменим организацию разделов для фрейма данных, чтобы использовтать 4 раздела
      * {14} - Получаем доступ к RDD с помощью метода rdd(), затем переходим к разделам
+     * {15} - Извлечение схемы (type StruckType)
+     * {16} - Вывод схемы в виде дерева
+     * {17} - Вывод схемы в виде строки
+     * {18} - Вывод схемы в формате JSON
      */
     private void start() {
 
@@ -80,6 +85,8 @@ public class IngestionSchemaManipulationApp {
         df.show(5);
         df.printSchema();
 
+        System.out.println("*******************************************************************");
+
         System.out.println("*** Looking at partitions");
         Partition[] partitions = df.rdd().partitions();                             // {11}
         int partitionCount = partitions.length;                                     // {12}
@@ -87,6 +94,22 @@ public class IngestionSchemaManipulationApp {
 
         df = df.repartition(4);                                         // {13}
         System.out.println("Partition count after repartition: " + df.rdd().partitions().length);   // {14}
+
+        System.out.println("******************************** Schema as a tree ***********************************");
+
+        StructType schema = df.schema();                                           //{15}
+        System.out.println("*** Schema as a tree: ");
+        schema.printTreeString();                                                  //{16}
+
+        System.out.println("***************************** Schema as string **************************************");
+
+        String schemaAsString = schema.mkString();                                 //{17}
+        System.out.println("*** Schema as string: " + schemaAsString);
+
+        System.out.println("***************************** Schema as JSON **************************************");
+
+        String schemaAsJson = schema.prettyJson();                                //{18}
+        System.out.println("*** Schema as JSON: " + schemaAsJson);
 
     }
     // вывод работы метода
@@ -161,6 +184,102 @@ public class IngestionSchemaManipulationApp {
     *** Looking at partitions
     Partition count before repartition: 1
     Partition count after repartition: 4
+     */
+
+    /* {16}
+    *** Schema as a tree:
+    root
+     |-- datasetId: string (nullable = true)
+     |-- name: string (nullable = true)
+     |-- address1: string (nullable = true)
+     |-- address2: string (nullable = true)
+     |-- city: string (nullable = true)
+     |-- state: string (nullable = true)
+     |-- zip: string (nullable = true)
+     |-- tel: string (nullable = true)
+     |-- dateStart: string (nullable = true)
+     |-- type: string (nullable = true)
+     |-- geoX: string (nullable = true)
+     |-- geoY: string (nullable = true)
+     |-- country: string (nullable = false)
+     |-- id: string (nullable = true)
+     */
+
+    /*
+    *** Schema as JSON: {
+      "type" : "struct",
+      "fields" : [ {
+        "name" : "datasetId",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "name",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "address1",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "address2",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "city",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "state",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "zip",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "tel",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "dateStart",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "type",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "geoX",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "geoY",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      }, {
+        "name" : "country",
+        "type" : "string",
+        "nullable" : false,
+        "metadata" : { }
+      }, {
+        "name" : "id",
+        "type" : "string",
+        "nullable" : true,
+        "metadata" : { }
+      } ]
+    }
      */
 
 
