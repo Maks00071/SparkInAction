@@ -182,6 +182,22 @@
         <version>${maven-compiler-plugin.version}</version>
       </plugin>
 
+      <!--  Build a jar containing the source code  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <!--  Build the uber jar in the package phase  -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
