@@ -1,0 +1,77 @@
+https://dev.to/jayreddy/how-to-handle-nested-json-with-apache-spark-3okg
+
+
+Пример вложенного файла JSON,
+
+val nestedJSON ="""{
+                   "Total_value": 3,
+                   "Topic": "Example",
+                   "values": [
+                              {
+                                "value1": "#example1",
+                                "points": [
+                                           [
+                                           "123",
+                                           "156"
+                                          ]
+                                    ],
+                                "properties": {
+                                 "date": "12-04-19",
+                                 "model": "Model example 1"
+                                    }
+                                 },
+                               {"value2": "#example2",
+                                "points": [
+                                           [
+                                           "124",
+                                           "157"
+                                          ]
+                                    ],
+                                "properties": {
+                                 "date": "12-05-19",
+                                 "model": "Model example 2"
+                                    }
+                                 }
+                              ]
+                       }"""
+					   
+
+
+шаг 1: Прочтите встроенный файл JSON как Dataframe для выполнения преобразований входных данных.
+
+мы используем метод sparks createDataset для чтения данных с жёсткой привязкой к схеме.
+
+Dataset Это строго типизированная коллекция объектов, относящихся к определённой области. Наборы данных позволяют гибко преобразовывать объекты, относящиеся к определённой области, параллельно с помощью функциональных операций.
+
+val flattenDF = spark.read.json(spark.createDataset(nestedJSON :: Nil))
+
+
+шаг 2: прочтите поля DataFrame по схеме и извлеките имена полей, сопоставив их с полями,
+
+val fields = df.schema.fields
+val fieldNames = fields.map(x => x.name)
+шаг 3: перебираем индексы полей, чтобы получить все значения и типы, и разбиваем файл JSON на части. Выполняем сопоставление шаблонов, чтобы вывести наши данные.
+
+мы разбиваем столбцы на основе типов данных, таких как ArrayType или StructType.
+
+for (i <- fields.indices) {
+        val field = fields(i)
+        val fieldName = field.name       
+        val fieldtype = field.dataType
+        fieldtype match {
+          case aType: ArrayType =>
+            val firstFieldName = fieldName
+            val fieldNamesExcludingArrayType = fieldNames.filter(_ != firstFieldName)
+            val explodeFieldNames = fieldNamesExcludingArrayType ++ Array(s"explode_outer($firstFieldName) as $firstFieldName")
+            val explodedDf = df.selectExpr(explodeFieldNames: _*)
+            return flattenDataframe(explodedDf)
+
+          case sType: StructType =>
+            val childFieldnames = sType.fieldNames.map(childname => fieldName + "." + childname)
+            val newfieldNames = fieldNames.filter(_ != fieldName) ++ childFieldnames
+            val renamedcols = newfieldNames.map(x => (col(x.toString()).as(x.toString().replace(".", "_").replace("$", "_").replace("__", "_").replace(" ", "").replace("-", ""))))
+            val explodedf = df.select(renamedcols: _*)
+            return flattenDataframe(explodedf)
+          case _ =>
+        }
+      }					   
