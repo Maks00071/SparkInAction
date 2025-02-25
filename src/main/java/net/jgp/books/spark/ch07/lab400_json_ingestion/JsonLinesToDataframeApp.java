@@ -24,14 +24,14 @@ public class JsonLinesToDataframeApp {
 
         JavaSparkContext sc = new JavaSparkContext(spark.sparkContext());
 
-//        Dataset<Row> df = spark.read()
-//                .format("json")
-//                .option("multiline", true)
-//                .load("data/ch07/durham-nc-foreclosure-2006-2016.json");
-//
-//        df.show(5, 20);
-//
-//        df.printSchema();
+        Dataset<Row> df = spark.read()
+                .format("json")
+                .option("multiline", true)
+                .load("data/ch07/durham-nc-foreclosure-2006-2016.json");
+
+        df.show(5, 20);
+
+        df.printSchema();
 
         Dataset<Row> testDf = spark.read().json("data/ch07/durham-nc-foreclosure-2006-2016.json");
         testDf.printSchema();
