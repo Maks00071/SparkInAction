@@ -16,9 +16,9 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <scala.version>2.12</scala.version>
     <spark.version>3.3.2</spark.version>
+    <spark-xml.version>0.7.0</spark-xml.version>
     <junit.version>4.13.1</junit.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-<!--    <jackson.version>2.15.2</jackson.version>-->
     <jackson.version>2.13.5</jackson.version>
     <postgresql.version>42.7.2</postgresql.version>
   </properties>
@@ -73,7 +73,6 @@
       <version>${postgresql.version}</version>
     </dependency>
 
-
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_2.10</artifactId>
@@ -91,6 +90,19 @@
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.version}</artifactId>
       <version>${spark.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.databricks/spark-xml -->
+    <dependency>
+      <groupId>com.databricks</groupId>
+      <artifactId>spark-xml_${scala.version}</artifactId>
+      <version>${spark-xml.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
