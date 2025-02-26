@@ -7,6 +7,8 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.types.StructType;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import java.util.Arrays;
+
 
 public class JsonLinesToDataframeApp {
 
@@ -33,14 +35,14 @@ public class JsonLinesToDataframeApp {
 
         df.printSchema();
 
-        Dataset<Row> testDf = spark.read().json("data/ch07/durham-nc-foreclosure-2006-2016.json");
-        testDf.printSchema();
-        testDf.show(5, 50);
-
-        Dataset<Row> df2 =spark.read()
-                .json(sc.wholeTextFiles("data/ch07/durham-nc-foreclosure-2006-2016.json").map(t -> t._2()));
-        df2.printSchema();
-        df2.show(5, 50);
+//        Dataset<Row> testDf = spark.read().json("data/ch07/durham-nc-foreclosure-2006-2016.json");
+//        testDf.printSchema();
+//        testDf.show(5, 50);
+//
+//        Dataset<Row> df2 =spark.read()
+//                .json(sc.wholeTextFiles("data/ch07/durham-nc-foreclosure-2006-2016.json").map(t -> t._2()));
+//        df2.printSchema();
+//        df2.show(5, 50);
     }
 
     /*

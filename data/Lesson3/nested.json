@@ -1,0 +1,34 @@
+[
+  {
+    "Total_value": 3,
+    "Topic": "Example",
+    "values": [
+      {
+        "value1": "#example1",
+        "points": [
+          [
+            "123",
+            "156"
+          ]
+        ],
+        "properties": {
+          "date": "12-04-19",
+          "model": "Model example 1"
+        }
+      },
+      {
+        "value2": "#example2",
+        "points": [
+          [
+            "124",
+            "157"
+          ]
+        ],
+        "properties": {
+          "date": "12-05-19",
+          "model": "Model example 2"
+        }
+      }
+    ]
+  }
+]
