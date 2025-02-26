@@ -4,7 +4,12 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-
+/**
+ * XML ingestion to a dataframe.
+ * <p>
+ * Source of file: NASA patents dataset -
+ * <a href="https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm">...</a>
+ */
 public class XmlToDataframeApp {
 
     public static void main(String[] args) {
