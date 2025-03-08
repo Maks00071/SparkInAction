@@ -7,10 +7,10 @@ import org.apache.spark.sql.Row;
 import java.util.Properties;
 
 
-public class MySQLToDatasetWithOptionsApp {
+public class MySQLToDatasetEnvApp {
 
     public static void main(String[] args) {
-        MySQLToDatasetWithOptionsApp app = new MySQLToDatasetWithOptionsApp();
+        MySQLToDatasetEnvApp app = new MySQLToDatasetEnvApp();
         app.start();
     }
 
