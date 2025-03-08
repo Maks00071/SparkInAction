@@ -21,6 +21,9 @@
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <jackson.version>2.13.5</jackson.version>
     <postgresql.version>42.7.2</postgresql.version>
+    <mysql.version>8.0.19</mysql.version>
+    <informix-jdbc.version>4.10.8.1</informix-jdbc.version>
+    <elasticsearch-hadoop.version>6.2.1</elasticsearch-hadoop.version>
   </properties>
 
   <dependencies>
@@ -84,6 +87,27 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.ibm.informix/jdbc -->
+    <dependency>
+      <groupId>com.ibm.informix</groupId>
+      <artifactId>jdbc</artifactId>
+      <version>${informix-jdbc.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-hadoop -->
+    <dependency>
+      <groupId>org.elasticsearch</groupId>
+      <artifactId>elasticsearch-hadoop</artifactId>
+      <version>${elasticsearch-hadoop.version}</version>
     </dependency>
 
     <dependency>
