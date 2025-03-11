@@ -24,6 +24,7 @@
     <mysql.version>8.0.19</mysql.version>
     <informix-jdbc.version>4.10.8.1</informix-jdbc.version>
     <elasticsearch-hadoop.version>6.2.1</elasticsearch-hadoop.version>
+    <metadata-extractor.version>2.19.0</metadata-extractor.version>
   </properties>
 
   <dependencies>
@@ -101,6 +102,13 @@
       <groupId>com.ibm.informix</groupId>
       <artifactId>jdbc</artifactId>
       <version>${informix-jdbc.version}</version>
+    </dependency>
+
+    <!--  Metadata  -->
+    <dependency>
+      <groupId>com.drewnoakes</groupId>
+      <artifactId>metadata-extractor</artifactId>
+      <version>${metadata-extractor.version}</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch-hadoop -->
